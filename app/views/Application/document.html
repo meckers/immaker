@@ -1,0 +1,19 @@
+#{extends 'main.html' /}
+#{set title:'figurly | all the fun' /}
+
+<div id="header">
+    <img src="/public/images/figurly-textlogo.png"/>
+</div>
+
+<div id="content">
+    #{if comic}
+    <div>
+        <div onclick="Figurly.toggleTemplate();" class="button">Show template</div><br/>
+        <img src="/public/comiccontent/${comic.id}/${comic.id}_t.png" class="image template hidden"/>
+        <img src="/public/comiccontent/${comic.id}/${comic.id}.png" class="image">
+    </div>
+    #{/if}
+    #{else}
+        <div class="message">Not found - image does not exist, or is not published.</div>
+    #{/else}
+</div>

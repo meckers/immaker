@@ -1,0 +1,29 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET		/store/load/{id}						Store.load
+POST	/store/save								Store.save
+POST	/upload									Upload.upload
+#REPLACEDBYVGHOST
+
+POST    /edit/add                               Edit.addFrame
+GET     /edit/new                               Edit.newComic
+GET     /edit/order/{comicId}/{frameId}/{direction}     Edit.order
+GET     /edit/remove/{comicId}/{frameId}        Edit.removeFrame
+GET     /edit/finalize/{comicId}                Edit.finalizeComic
+GET     /edit/{id}                              Application.edit
+GET     /edit                                   Application.edit
+
+# Home page
+GET     /{comicId}                              Application.index
+GET     /                                       Application.index
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

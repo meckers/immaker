@@ -1,0 +1,16 @@
+<fieldset>
+    <legend>Couch save example</legend>
+    <form class="dropzone" id="my-awesome-dropzone" action="/upload">
+        <input type="hidden" id="extradata" value="example123"/>
+    </form>
+    <div id="message"></div>
+</fieldset>
+
+
+<script>
+    Dropzone.options.myAwesomeDropzone = {
+        init: function() {
+            this.on("addedfile", function(file) { alert("Added file."); });
+        }
+    };
+</script>

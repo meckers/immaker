@@ -1,0 +1,13 @@
+%{ version = play.Play.configuration.getProperty("version.static.files"); }%
+
+#{set 'files'}
+    #{ include '../../build/includelists/' + _category + '-scripts.files' /}
+#{/set}
+
+#{set fileArray: files.split('\n') /}
+
+#{list items:fileArray, as: 'file'}
+    %{ file = file.replace(' ', '')}%
+    <script src="/public/javascripts/${file}?${version}" type="text/javascript" charset="${_response_encoding}"></script>
+#{/list}
+

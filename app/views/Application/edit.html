@@ -1,0 +1,56 @@
+#{extends 'main.html' /}
+#{set title:'Edit comic' /}
+
+<input type="button" id="vcmaker-quit-button" value="X" onclick="Figurly.SideBar.quit();"/>
+
+<div id="instructions"></div>
+
+#{if comic == null || !comic.getPublished()}
+<div style="text-align: center">
+    <input type="button" id="start-selection-button" class="button neutral" value="ENTER SELECT MODE" onclick="Figurly.SideBar.toggleSelectionMode();"/>
+</div>
+#{/if}
+
+#{if comic != null}
+    #{if comic.getPublished()}
+    This image is now availible at <a href="http://localhost:9881/${comic.id}" target="_blank">www.figurly.com/${comic.id}</a>.
+    #{/if}
+
+    <input type="button" value="NEW SESSION" onclick="document.location='/edit/new';"/><br/>
+
+    #{if !comic.getPublished()}
+        <input type="text" id="permalink" disabled value="http://localhost:9881/${comic.getId()}" /><br/>
+
+        <input type="button" value="SAVE & SHARE" onclick="Figurly.SideBar.saveAndShare('${comic.getId()}')"/>
+
+        <ul class="frame-list">
+            #{list items:comic.getFrames(), as:'frame'}
+                <li>
+                    <div class="remove-button" onclick="document.location='/edit/remove/${comic.getId()}/${frame}';"><i class="fa fa-trash-o"></i></div>
+                    <div class="order-buttons">
+                        #{if (frame_isFirst)}
+                            <div class="order-button up noclick"></div>
+                        #{/if}
+                        #{else}
+                            <div class="order-button up" onclick="document.location='/edit/order/${comic.getId()}/${frame}/up';"><i class="fa fa-arrow-up"></i></div>
+                        #{/else}
+
+                        #{if (frame_isLast)}
+                            <div class="order-button down noclick"></div>
+                        #{/if}
+                        #{else}
+                            <div class="order-button down" onclick="document.location='/edit/order/${comic.getId()}/${frame}/down';"><i class="fa fa-arrow-down"></i></div>
+                        #{/else}
+                    </div>
+                    <img src="/public/comiccontent/${comic.getId()}/${frame}.png"/>
+                </li>
+            #{/list}
+        </ul>
+    #{/if}
+#{/if}
+#{else}
+    No images yet...
+#{/else}
+
+
+

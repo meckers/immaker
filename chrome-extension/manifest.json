@@ -1,0 +1,36 @@
+{
+    "manifest_version": 2,
+
+    "name": "Image Macro Maker",
+    "description": "Make image macros out of anytning on the web, instantly.",
+    "version": "1.0",
+
+    "permissions": ["tabs", "<all_urls>",  "http://*/*", "https://*/*"],
+
+    "background": {
+        "scripts": ["js/jquery-1.10.2.min.js", "js/background.js"]
+    },
+
+    "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+      "js/jquery-1.10.2.min.js",
+      "js/simple-javascript-inheritance.js",
+      "js/events.js",
+      "js/app.js",
+      "js/messages.js",
+      "js/sidebar.js",
+      "js/frame.js",
+      "js/texteditor.js",
+      "js/mouseselection.js",
+      "js/shroud.js"
+
+      ],
+      "css": ["css/clipnote.css"]
+    }],
+
+      "browser_action": {
+        "default_icon": "icon.png"
+    }
+}

@@ -1,0 +1,21 @@
+
+<fieldset>
+    <legend>Couch save example</legend>
+    Title: <input type="text" id="title"/><br/>
+    Body: <input type="text" id="body"><br/>
+    <input type="button" id="save-button" value="SAVE"/>
+    <div id="message"></div>
+</fieldset>
+
+
+<script>
+    $("#save-button").click(function() {
+        $.post("/store/save", {
+            title: $('#title').val(),
+            thebody: $('#body').val()
+        }, function(response) {
+            console.log("save complete", response);
+            $("#message").html(response.debuginfo + " (" + response.id + ")");
+        })
+    });
+</script>

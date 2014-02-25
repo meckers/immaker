@@ -1,0 +1,14 @@
+bin/
+data/
+db/
+dist/
+logs/
+test-result/
+lib/
+tmp/
+modules/
+uploads/
+.idea/
+*.pid
+.DS_Store
+public/content/

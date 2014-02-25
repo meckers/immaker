@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="${_response_encoding}">
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        #{setStyles category:'common' /}
+        #{setScripts category:'libs' /}
+        #{setScripts category:'common' /}
+    </head>
+    <body>
+        #{doLayout /}
+    </body>
+</html>

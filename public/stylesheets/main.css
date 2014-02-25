@@ -1,0 +1,172 @@
+body {
+    font-family: verdana, arial, helvetica;
+    background-color: white;
+}
+
+
+/* SITE */
+
+.button {
+    border: 1px solid #a0a0a0;
+    border-radius: 2px;
+    padding: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #efefef;
+    margin: 5px;
+    width: 200px;
+    display: inline-block;
+}
+
+.vcmaker-quit-button {
+    position: absolute;
+    right: 0px;
+    top: 0;
+}
+
+#header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    background-color: black;
+}
+
+#content {
+    text-align: center;
+    margin-top: 100px;
+}
+
+img.image.hidden {
+    display: none;
+}
+
+
+/* SIDEBAR */
+
+#instructions {
+    border: 1px solid #add8e6;
+    padding: 5px;
+    margin: 10px;
+}
+
+
+ul.frame-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.frame-list li {
+    position: relative;
+}
+
+ul.frame-list li img {
+    width: 100%;
+}
+
+#permalink {
+    width: 100%;
+}
+
+.remove-button {
+    position: absolute;
+    right: 0px;
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    border: 0;
+    border-bottom-left-radius: 3px;
+    cursor: pointer;
+}
+
+.remove-button i {
+    margin-top: 5px;
+    margin-left: 7px;
+}
+
+.order-buttons {
+    position: absolute;
+    height: 48px;
+    width: 24px;
+    right: 0px;
+    top: 50%;
+    margin-top: -24px;
+}
+
+.order-buttons .order-button {
+    background-color: white;
+    height: 25px;
+    cursor: pointer;
+}
+
+.order-buttons .order-button.up {
+    border-top-left-radius: 3px;
+    border-bottom: 1px solid grey;
+}
+
+.order-buttons .order-button.noclick {
+    opacity:0.5;
+}
+
+.order-buttons .order-button i {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.order-buttons .order-button.noclick i {
+    display: none;
+}
+
+.order-buttons .order-button.down {
+    border-bottom-left-radius: 3px;
+}
+
+.button {
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+    border: 1px solid #505050;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.button.selectiondocked {
+    border-left: 3px dashed yellow;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.button.negative {
+    background: rgb(255,191,191); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,191,191,1) 0%, rgba(255,68,68,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,191,191,1)), color-stop(100%,rgba(255,68,68,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,191,191,1) 0%,rgba(255,68,68,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,191,191,1) 0%,rgba(255,68,68,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,191,191,1) 0%,rgba(255,68,68,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,191,191,1) 0%,rgba(255,68,68,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffbfbf', endColorstr='#ff4444',GradientType=0 ); /* IE6-9 */
+}
+
+.button.neutral {
+    background: rgb(158,206,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(158,206,255,1) 0%, rgba(64,150,238,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(158,206,255,1)), color-stop(100%,rgba(64,150,238,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(158,206,255,1) 0%,rgba(64,150,238,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(158,206,255,1) 0%,rgba(64,150,238,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(158,206,255,1) 0%,rgba(64,150,238,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(158,206,255,1) 0%,rgba(64,150,238,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9eceff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+}
+
+.button.positive {
+    background: rgb(201,222,150); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(201,222,150,1) 0%, rgba(57,130,53,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(201,222,150,1)), color-stop(100%,rgba(57,130,53,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(201,222,150,1) 0%,rgba(57,130,53,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(201,222,150,1) 0%,rgba(57,130,53,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(201,222,150,1) 0%,rgba(57,130,53,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(201,222,150,1) 0%,rgba(57,130,53,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=0 ); /* IE6-9 */
+}
