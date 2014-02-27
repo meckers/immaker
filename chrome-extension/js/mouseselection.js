@@ -1,6 +1,6 @@
-var ClipNote = ClipNote || {};
+var MacroMaker = MacroMaker || {};
 
-ClipNote.MouseSelection = {
+MacroMaker.MouseSelection = {
 
     mouseDownHandler: null,
     mouseUpHandler: null,
@@ -10,21 +10,20 @@ ClipNote.MouseSelection = {
 
     init: function(container) {
         this.$container = $(container) || $('body');
-        this.shroud = ClipNote.Shroud;
+        this.shroud = MacroMaker.Shroud;
         this.shroud.init("body", 3);
+        this.activate();
         this.listen();
     },
 
     activate: function() {
-        // this create (but hidden)
-        this.createBox({hidden: true});
         this.shroud.activate();
-        // shroud activate & create (all shrouded)
         this.active = true;
     },
 
     listen: function() {
         var me = this;
+        /*
         Events.register("START_SELECTION_BUTTON_CLICK", this, function() {
             me.activate();
             ClipNote.Messages.sendEvent("SELECTION_ACTIVATED");
@@ -34,7 +33,7 @@ ClipNote.MouseSelection = {
         });
         Events.register("SAVE_AND_SHARE", this, function() {
             me.dismantle();
-        })
+        })*/
 
         $('body').bind('mousedown', function(e) {
             console.log("mouse down");
@@ -50,7 +49,7 @@ ClipNote.MouseSelection = {
 
     onCancelSelection: function() {
         this.dismantle();
-        ClipNote.Messages.sendEvent("SELECTION_CANCELLED");
+        MacroMaker.Messages.sendEvent("SELECTION_CANCELLED");
     },
 
     handleMouseDown: function(e) {
@@ -67,6 +66,7 @@ ClipNote.MouseSelection = {
             if (this.drawing) {
                 this.endBoxDraw();
                 e.stopPropagation();
+                e.preventDefault();
                 this.done = true;
                 //this.shroud.remove();
             }
@@ -101,7 +101,7 @@ ClipNote.MouseSelection = {
 
     createBox: function() {
         var el = jQuery('<div></div>');
-        el.addClass('mouse-selection');
+        el.addClass('imkr mouse-selection');
         el.css('top', this.startY);
         el.css('left', this.startX);
         el.css('border', this.border);
@@ -130,7 +130,7 @@ ClipNote.MouseSelection = {
                 this.callback(this.element);
             }
             Events.trigger("BOX_SELECTION_COMPLETE", this.box);
-            this.shroud.remove();
+            //this.shroud.remove();
         }
         else {
             this.reset();
@@ -143,7 +143,7 @@ ClipNote.MouseSelection = {
 
     getValues: function() {
         return {
-            top: this.box.offset().top,
+            top: this.box.offset().top - $(window).scrollTop(),
             left: this.box.offset().left,
             width: this.box.width(),
             height: this.box.height()

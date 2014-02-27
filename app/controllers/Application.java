@@ -9,12 +9,12 @@ import models.*;
 
 public class Application extends Controller {
 
-    public static void index(String comicId) {
-        Comic comic = null;
-        if (comicId != null) {
-            comic = ComicStore.get(comicId);
-            if (comic.getPublished()) {
-                renderTemplate("Application/document.html", comic);
+    public static void index(String imageId) {
+        Image image = null;
+        if (imageId != null) {
+            image = ImageStore.get(imageId);
+            if (image.getPublished()) {
+                renderTemplate("Application/document.html", image);
             }
         }
         renderTemplate("Application/document.html");

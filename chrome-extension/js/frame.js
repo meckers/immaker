@@ -1,6 +1,6 @@
-var ClipNote = ClipNote || {};
+var MacroMaker = MacroMaker || {};
 
-ClipNote.Frame = {
+MacroMaker.Frame = Class.extend({
 
 	element: null,
 	image: null,
@@ -11,14 +11,29 @@ ClipNote.Frame = {
 	mouseSelection: null,
 
 	init: function() {
-		//this.element = element;
-		this.textEditor = new ClipNote.TextEditor();
-        this.textEditorTop = new ClipNote.TextEditor();
-		this.mouseSelection = ClipNote.MouseSelection;
+		this.textEditor = new MacroMaker.TextEditor();
+        this.textEditorTop = new MacroMaker.TextEditor();
+		this.mouseSelection = MacroMaker.MouseSelection;
         this.mouseSelection.init('body');
-		//this.enableSelection();
 		this.registerListeners();
+        console.log("inited");
 	},
+
+    create: function(box) {
+        this.element = box;
+        this.textEditor.create(box, "bottom");
+        this.textEditorTop.create(box, "top");
+        this.createGrabButton();
+        this.createCancelButton();
+    },
+
+    destroy: function() {
+        this.element.remove();
+        this.element = null;
+        //this.textEditor.destroy();
+        //this.textEditorTop.destroy();
+        //this.destroyButtons();
+    },
 
 	registerListeners: function() {
 		var me = this;
@@ -37,50 +52,37 @@ ClipNote.Frame = {
 		}
 	},
 
-    /*
-	enableSelection: function() {
-		var me = this;
-		this.mouseSelection.init(function(element) {
-			me.onSelectionComplete(element);
-		});	
-	},*/
-
 	onSelectionComplete: function(box) {
-		this.element = box;
-		this.textEditor.create(box, "bottom");
-        this.textEditorTop.create(box, "top");
-		this.createGrabButton();
-        this.createCancelButton();
+        this.create(box);
 	},
 
 	createGrabButton: function() {
 		var me = this;
-		var ClipNote_snapshotButton = jQuery("<div></div>");
-		ClipNote_snapshotButton.html("GRAB ->");
-		//ClipNote_snapshotButton.addClass("hanging-button grab");
-        ClipNote_snapshotButton.addClass("button selectiondocked positive");
-		ClipNote_snapshotButton.click(function() {
+		var grabButton = jQuery("<div></div>");
+        grabButton.html("SAVE & SHARE");
+        grabButton.addClass("imkr button hanging save positive");
+        grabButton.click(function() {
 			me.grabFrame();
 		});
-		this.element.append(ClipNote_snapshotButton);
+		this.element.append(grabButton);
 	},
 
     createCancelButton: function() {
         var me = this;
         var cancelButton = jQuery("<div></div>");
         cancelButton.html("CANCEL SELECTION");
-        cancelButton.addClass("hanging-button cancel");
+        cancelButton.addClass("imkr button hanging cancel negative");
         cancelButton.click(function() {
-            //me.cancelSelection();
             Events.trigger("CANCEL_SELECTION_CLICK");
-
         });
         this.element.append(cancelButton);
     },
 
+    destroyButtons: function() {
+        $('.imkr.button').remove();
+    },
+
     cancelSelection: function() {
-        //this.mouseSelection.cancel();
-        //this.mouseSelection.reset();
         Events.trigger("SELECTION_CANCELLED");
     },
 
@@ -96,8 +98,7 @@ ClipNote.Frame = {
 	captureImages: function(callback) {
 		var me = this;
 		chrome.runtime.sendMessage({
-			command: "capture-tab",
-			test: '1'
+			command: "capture-tab"
 		}, function(response) {
 			//document.getElementById('chinti-texteditor').style.display = 'none';
             $(".caption").css('display', 'none');
@@ -109,8 +110,7 @@ ClipNote.Frame = {
 			// TODO: DETTA MÅSTE FIXAS, vi kan inte förlita oss på en setTimout.
 			setTimeout(function() {
 				chrome.runtime.sendMessage({
-					command: "capture-tab",
-					test: '2'
+					command: "capture-tab"
 				}, function(secondResponse) {
 					if (secondResponse.image) {					
 						me.image = secondResponse.image;
@@ -131,7 +131,7 @@ ClipNote.Frame = {
 		if (this.imageWithCaption && this.image) {
 			var values = this.getValues();
 			console.log(this.imageWithCaption.substr(this.imageWithCaption.length-10), this.image.substr(this.image.length-10));
-			ClipNote.App.postData(this.imageWithCaption, this.image, values.top, values.left, values.width, values.height);
+			MacroMaker.App.postDataAjax(this.imageWithCaption, this.image, values.top, values.left, values.width, values.height);
             return true;
 		}
 	},
@@ -148,4 +148,4 @@ ClipNote.Frame = {
 		return values;
 	}
 
-};
+});

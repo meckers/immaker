@@ -1,9 +1,6 @@
 package controllers;
 
-import models.Comic;
-import models.ComicStore;
-import models.FrameDO;
-import models.ImageHelpers;
+import models.*;
 import play.Play;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -22,52 +19,70 @@ public class Edit extends Controller {
         renderTemplate("Application/edit.html");
     }
 
-    public static void addFrame() {
-
-        String comicId = null;
-
-        Http.Cookie idCookie = request.cookies.get("comicid");
-        if (idCookie != null) {
-            comicId = idCookie.value;
-        }
+    public static void createImage() {
 
         BufferedImage imageWithCaption = ImageHelpers.decodeToImage(params.get("imageWithCaption"));
-        BufferedImage image = ImageHelpers.decodeToImage(params.get("image"));
+        BufferedImage imageNoCaption = ImageHelpers.decodeToImage(params.get("imageNoCaption"));
         int top = Integer.parseInt(params.get("top"));
         int left = Integer.parseInt(params.get("left"));
         int width = Integer.parseInt(params.get("width"));
         int height = Integer.parseInt(params.get("height"));
 
+        /*
         UUID uuid = UUID.randomUUID();
         String frameId =  uuid.toString().substring(0, 5);
+        */
 
-        Comic comic = null;
+        Image image = null;
 
-        if (comicId == null) {
-            // create new comic in db
-            comic = new Comic();  // comic created with new random ID.
-            comic.getFrames().add(frameId);
-            ComicStore.save(comic);
-        }
-        else {
-            // update existing comic in db (add image to array)
-            comic = ComicStore.get(comicId);
-            comic.getFrames().add(frameId);
-            ComicStore.update(comic);
-        }
+        // create new image in db
+        image = new Image();  // comic created with new random ID.
+        image.setPublished(true);
+        ImageStore.save(image);
 
         imageWithCaption = ImageHelpers.cropImage(imageWithCaption, top, left, width, height);
-        image = ImageHelpers.cropImage(image, top, left, width, height);
+        imageNoCaption = ImageHelpers.cropImage(imageNoCaption, top, left, width, height);
 
-        FrameDO.save(imageWithCaption, comic.getId(), frameId, "");
-        FrameDO.save(image, comic.getId(), frameId, "_t");
+        FrameDO.save(imageWithCaption, image.getId(), image.getId(), "");
+        FrameDO.save(imageNoCaption, image.getId(), image.getId(), "_t");
 
-        response.setCookie("comicid", comic.getId(), "1h");
-
-
-        renderTemplate("Application/edit.html", comic);
+        renderTemplate("Application/document.html", image);
     }
 
+    public static void createImageAjax() {
+
+        try{
+            BufferedImage imageWithCaption = ImageHelpers.decodeToImage(params.get("imageWithCaption"));
+            BufferedImage imageNoCaption = ImageHelpers.decodeToImage(params.get("imageNoCaption"));
+            int top = Integer.parseInt(params.get("top"));
+            int left = Integer.parseInt(params.get("left"));
+            int width = Integer.parseInt(params.get("width"));
+            int height = Integer.parseInt(params.get("height"));
+
+            Image image = null;
+
+            // create new image in db
+            image = new Image();  // image created with new random ID.
+            image.setPublished(true);
+            ImageStore.save(image);
+
+            FrameDO.save(imageWithCaption, image.getId(), image.getId(), "_o");
+
+            imageWithCaption = ImageHelpers.cropImage(imageWithCaption, top, left, width, height);
+            imageNoCaption = ImageHelpers.cropImage(imageNoCaption, top, left, width, height);
+
+            FrameDO.save(imageWithCaption, image.getId(), image.getId(), "");
+            FrameDO.save(imageNoCaption, image.getId(), image.getId(), "_t");
+
+            renderJSON("{\"imageId\": \"" + image.getId() + "\"}");
+        }
+        catch(Exception ex) {
+            renderJSON("{\"error\": \"" + ex.getMessage() + "\"}");
+        }
+
+    }
+
+    /*
     public static void order(String comicId, String frameId, String direction) {
         Comic comic = ComicStore.get(comicId);
         int sourceIndex = comic.getFrames().indexOf(frameId);
@@ -119,6 +134,6 @@ public class Edit extends Controller {
         catch(Exception ex) {}
     }
 
-
+    */
 
 }

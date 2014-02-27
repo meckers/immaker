@@ -12,15 +12,15 @@ public class FrameDO {
         try {
             String appFolder = Play.getFile("").getAbsolutePath();
             String publicFolder = appFolder + File.separator + "public";
-            String contentFolder = publicFolder + File.separator + "comiccontent";
-            String comicFolder = contentFolder + File.separator + folder;
+            String contentFolder = publicFolder + File.separator + "content";
+            String imageFolder = contentFolder + File.separator + folder;
 
-            File dir = new File(comicFolder);
+            File dir = new File(imageFolder);
             if (!dir.exists()) {
                 dir.mkdir();
             }
 
-            String filePath = comicFolder + File.separator + fileName + fileNameSuffix + ".png";
+            String filePath = imageFolder + File.separator + fileName + fileNameSuffix + ".png";
 
             ImageIO.write(image, "png", new File(filePath));
         }

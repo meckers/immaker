@@ -5,12 +5,14 @@
     <img src="/public/images/figurly-textlogo.png"/>
 </div>
 
+
+
 <div id="content">
-    #{if comic}
+    #{if image}
     <div>
         <div onclick="Figurly.toggleTemplate();" class="button">Show template</div><br/>
-        <img src="/public/comiccontent/${comic.id}/${comic.id}_t.png" class="image template hidden"/>
-        <img src="/public/comiccontent/${comic.id}/${comic.id}.png" class="image">
+        <img src="/public/content/${image.id}/${image.id}_t.png" class="image template hidden"/>
+        <img src="/public/content/${image.id}/${image.id}.png" class="image">
     </div>
     #{/if}
     #{else}

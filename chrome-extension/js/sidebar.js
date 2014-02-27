@@ -1,6 +1,6 @@
-var ClipNote = ClipNote || {};
+var MacroMaker = MacroMaker || {};
 
-ClipNote.SideBar = {
+MacroMaker.SideBar = {
 
     init: function(container, url) {
         this.$container = $(container);

@@ -1,6 +1,6 @@
-var ClipNote = ClipNote || {};
+var MacroMaker = MacroMaker || {};
 
-ClipNote.Shroud = {
+MacroMaker.Shroud = {
 
     startEl: null,
     leftEl: null,
@@ -28,7 +28,8 @@ ClipNote.Shroud = {
     },
 
     shroudAll: function() {
-        this.startEl = $("<div></div>").addClass('shroud start');
+        console.log("shrouding all");
+        this.startEl = $("<div></div>").addClass('imkr shroud start');
         this.startEl.css({
             'width': $(document).width() + 'px',
             'height': $(document).height() + 'px'
@@ -64,10 +65,10 @@ ClipNote.Shroud = {
             this.startEl.remove();
         }
 
-        this.leftEl = $("<div></div>").addClass('shroud left');
-        this.overEl = $("<div></div>").addClass('shroud over');
-        this.underEl = $("<div></div>").addClass('shroud under');
-        this.rightEl = $("<div></div>").addClass('shroud right');
+        this.leftEl = $("<div></div>").addClass('imkr shroud left');
+        this.overEl = $("<div></div>").addClass('imkr shroud over');
+        this.underEl = $("<div></div>").addClass('imkr shroud under');
+        this.rightEl = $("<div></div>").addClass('imkr shroud right');
 
         this.$container.append(this.leftEl);
         this.$container.append(this.overEl);

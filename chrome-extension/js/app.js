@@ -1,25 +1,21 @@
-var ClipNote = ClipNote || {};
+var MacroMaker = MacroMaker || {};
 
-ClipNote.App = {
+MacroMaker.App = {
 	
 	frame: null,
-	sidebar: null,
 	baseUrl: 'http://localhost:9881',
 
 	init: function() {
-        $('body').addClass('eckersvcmaker');
-		this.frame = ClipNote.Frame;
-		this.registerListeners();
-        ClipNote.Messages.init();
+		this.frame = new MacroMaker.Frame();
 	},
 
-	activate: function() {
-		this.openSidebar();
-		this.frame.init();
-	},
 
     quit: function() {
-        this.removeSidebar();
+
+    },
+
+    /*
+    quit: function() {
         chrome.runtime.sendMessage({
             command: "quit"
         });
@@ -31,24 +27,49 @@ ClipNote.App = {
             me.quit();
         })
 	},
+    */
 
-	openSidebar: function() {
-        ClipNote.SideBar.init('body', this.baseUrl + '/edit');
-	},
 
-    removeSidebar: function() {
-        ClipNote.SideBar.remove();
-    },
+    postDataAjax: function(imageWithCaption, image, top, left, width, height) {
+
+        var isRetina = window.devicePixelRatio > 1;
+        var multiplier = isRetina ? 2 : 1;
+
+        console.log("posting via AJAX. retina=", isRetina, "multiplier=", multiplier);
+
+        var me = this;
+        $.post(this.baseUrl + '/edit/createajax', {
+            'imageWithCaption': imageWithCaption,
+            'imageNoCaption': image,
+            'top': top * multiplier,
+            'left': left * multiplier,
+            'width': width * multiplier,
+            'height': height * multiplier,
+            'retina': isRetina
+        }, function(data) {
+            console.log(data);
+            if (data.imageId) {
+                chrome.runtime.sendMessage({
+                    command: "new-tab",
+                    url: me.baseUrl + "/" + data.imageId
+                });
+                Events.trigger("IMAGE_SAVE_COMPLETE", data);
+            }
+        });
+    }
+
 
 	// Since I want to specify target, It seems I need to do this via an injected form:
+    /*
 	postData: function(imageWithCaption, image, top, left, width, height) {
+        console.log("post data", top, left, width, height);
 		var fform = $('<form></form>');
 		fform.attr({
 			'id': 'chinti_uploadform',
 			'method': 'POST',
-			'target': 'chinti_edit',
+			'target': '_self',
 			'enctype': 'multipart/form-data',
-			'action': this.baseUrl + '/edit/add'
+			'action': this.baseUrl + '/edit/create'
 		});
 		
 		if ($("#chinti_uploadform")) {
@@ -72,5 +93,5 @@ ClipNote.App = {
 	    input.attr('name', name);
 	    input.val(value);
 	    fform.append(input);    
-	}	
+	}	    */
 }

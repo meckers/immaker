@@ -1,6 +1,6 @@
-var ClipNote = ClipNote || {};
+var MacroMaker = MacroMaker || {};
 
-ClipNote.Messages = {
+MacroMaker.Messages = {
 
     init: function() {
         this.listen();
@@ -32,7 +32,7 @@ ClipNote.Messages = {
     POST_GRAB: 'Great! If you are satisifed with your creation, click "save & share", otherwise, repeat the steps to add more images.',
 
     sendMessage: function(messageName) {
-        document.getElementById('chinti_edit').contentWindow.postMessage({command: 'showMessage', message: ClipNote.Messages[messageName]}, "http://localhost:9881");
+        document.getElementById('chinti_edit').contentWindow.postMessage({command: 'showMessage', message: MacroMaker.Messages[messageName]}, "http://localhost:9881");
     },
 
     sendEvent: function(name, data) {

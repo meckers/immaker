@@ -19,8 +19,6 @@
       "js/simple-javascript-inheritance.js",
       "js/events.js",
       "js/app.js",
-      "js/messages.js",
-      "js/sidebar.js",
       "js/frame.js",
       "js/texteditor.js",
       "js/mouseselection.js",

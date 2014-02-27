@@ -1,5 +1,5 @@
 
-.eckersvcmaker .textedit-button {
+.imkr.textedit-button {
 	padding: 3px;
 	border: 1px solid black;
 	background-color: wheat;
@@ -13,33 +13,35 @@
 	cursor: pointer;
 }
 
-.eckersvcmaker .hanging-button {
+.imkr.button.hanging {
     padding: 10px;
     border: 1px solid black;
     border-top: none;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
-    background-color: white;
-    bottom: -35px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    bottom: -39px;
     position: absolute;
     z-index: 100;
     color: black;
     cursor: pointer;
+    background-color: white;
 }
 
-.eckersvcmaker .hanging-button.grab {
-	right: 0px;
+.imkr.button.hanging.save {
+	right: 20px;
 }
 
-.eckersvcmaker .hanging-button.cancel {
-    left: 0px;
+.imkr.button.hanging.cancel {
+    left: 20px;
 }
 
-.eckersvcmaker .snapshot-button:hover {
+.imkr.snapshot-button:hover {
 	background-color: #efefef;
 }
 
-.eckersvcmaker .caption {
+.imkr.caption {
 	padding: 3px;
     font-family: "Impact", arial, tahoma;
     text-align: center;
@@ -49,18 +51,18 @@
 	z-index: 100;
 }
 
-.eckersvcmaker .caption.initial-mode {
+.imkr.caption.initial-mode {
     border: 1px dashed purple;
     background-color: black;
     opacity: 0.3;
 }
 
-.eckersvcmaker .caption.initial-mode .text {
+.imkr.caption.initial-mode .text {
     font-family: Verdana, Arial;
     font-size: 20px;
 }
 
-.eckersvcmaker .caption.outlined
+.imkr.caption.outlined
 {
     text-shadow:
     -2px -2px 0 #000,
@@ -70,11 +72,11 @@
     
 }
 
-.eckersvcmaker .caption.hidden {
+.imkr.caption.hidden {
 	display: none;
 }
 
-.eckersvcmaker .sidebar {
+.imkr.sidebar {
 	z-index: 2000000000;
 	width: 300px;
 	position: absolute;
@@ -86,7 +88,7 @@
 	/*border-left: 2px solid black; */
 }
 
-.eckersvcmaker .delimiter {
+.imkr.delimiter {
      z-index: 2000000000;
      width: 5px;
      /*height: 100%;*/
@@ -98,7 +100,7 @@
      padding: 0;
 }
 
-.eckersvcmaker .handle {
+.imkr.handle {
     z-index: 2000000000;
     width: 20px;
     /*height: 100%;*/
@@ -110,30 +112,30 @@
     cursor: ew-resize;
 }
 
-.eckersvcmaker .caption:hover, .caption:active {
+.imkr.caption:hover, .caption:active {
 	border: 1px dotted white;
 }
 
-.eckersvcmaker .mouse-selection {
+.imkr.mouse-selection {
 	/*border: 3px dotted yellow;*/
 	position: absolute;
 	z-index: 200000;
 }
 
 
-body.eckersvcmaker.selecting {
+.imkr.selecting {
     cursor: crosshair;
 }
 
 
-.eckersvcmaker .shroud {
+.imkr.shroud {
     background-color: black;
     opacity: 0.3;
     position:absolute;
     z-index: 200000;
 }
 
-.eckersvcmaker .shroud.start {
+.imkr.shroud.start {
     top: 0;
     left: 0;
     /*
@@ -141,33 +143,33 @@ body.eckersvcmaker.selecting {
     height: 100%;*/
 }
 
-.eckersvcmaker .shroud.left {
+.imkr.shroud.left {
     left: 0;
     top: 0;
 }
 
-.eckersvcmaker .shroud.over {
+.imkr.shroud.over {
     top: 0;
 }
 
-.eckersvcmaker .shroud.under {
+.imkr.shroud.under {
     /*bottom: 0;*/
 }
 
-.eckersvcmaker .shroud.right {
+.imkr.shroud.right {
     top: 0;
     right: 0;
 }
 
-.eckersvcmaker .no-border {
+.imkr.no-border {
 	border: none;
 }
 
-.eckersvcmaker .hidden {
+.imkr.hidden {
 	display: none;
 }
 
-.eckersvcmaker .button {
+.imkr.button {
     padding: 10px;
     font-size: 15px;
     text-align: center;
@@ -176,13 +178,13 @@ body.eckersvcmaker.selecting {
     cursor: pointer;
 }
 
-.eckersvcmaker .button.selectiondocked {
-    border-left: 3px dashed yellow;
+.imkr.button.selectiondocked {
+    border-top: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.eckersvcmaker .button.negative {
+.imkr.button.negative {
     background: rgb(255,191,191); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(255,191,191,1) 0%, rgba(255,68,68,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,191,191,1)), color-stop(100%,rgba(255,68,68,1))); /* Chrome,Safari4+ */
@@ -193,7 +195,7 @@ body.eckersvcmaker.selecting {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffbfbf', endColorstr='#ff4444',GradientType=0 ); /* IE6-9 */
 }
 
-.eckersvcmaker .button.neutral {
+.imkr.button.neutral {
     background: rgb(158,206,255); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(158,206,255,1) 0%, rgba(64,150,238,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(158,206,255,1)), color-stop(100%,rgba(64,150,238,1))); /* Chrome,Safari4+ */
@@ -204,7 +206,7 @@ body.eckersvcmaker.selecting {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9eceff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
 }
 
-.eckersvcmaker .button.positive {
+.imkr.button.positive {
     background: rgb(201,222,150); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(201,222,150,1) 0%, rgba(57,130,53,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(201,222,150,1)), color-stop(100%,rgba(57,130,53,1))); /* Chrome,Safari4+ */

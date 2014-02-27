@@ -1,20 +1,16 @@
 var active = false;
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-    console.log("click browser action", active);
-    if (!active) {
-        chrome.tabs.executeScript(null, {
-            file: 'js/start.js'
-        });
-        active = true;
+    //console.log("click browser action", MacroMaker);
+    if (typeof(MacroMaker) !== 'undefined') {
+        MacroMaker.App.quit();
     }
     else {
         chrome.tabs.executeScript(null, {
-            code: 'if (ClipNote) { ClipNote.App.quit(); }'
-        })
-        active = false;
+            file: 'js/start.js'
+        });
+        //active = true;
     }
-
 });
 
 /*
@@ -57,6 +53,9 @@ chrome.runtime.onMessage.addListener(
             });    
         });
 
+    }
+    else if (request.command == 'new-tab') {
+        chrome.tabs.create({ url: request.url });
     }
     else if (request.command == 'quit') {
         active = false;

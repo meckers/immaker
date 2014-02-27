@@ -1,6 +1,6 @@
-var ClipNote = ClipNote || {};
+var MacroMaker = MacroMaker || {};
 
-ClipNote.TextEditor = Class.extend({
+MacroMaker.TextEditor = Class.extend({
 
 	hidden: false,
     editMode: false,
@@ -14,8 +14,8 @@ ClipNote.TextEditor = Class.extend({
 		this.$container = $(container);
 		this.element = jQuery("<div></div>");
 		this.element.attr('id', 'chinti-texteditor');
-		this.element.addClass('caption');
-		this.element.addClass('outlined');
+		this.element.addClass('imkr caption');
+		this.element.addClass('imkr outlined');
 
 		this.width = Math.ceil(this.$container.width() * 0.66);
 		this.height = Math.ceil(this.$container.height() * 0.2);
@@ -43,6 +43,10 @@ ClipNote.TextEditor = Class.extend({
 
 		//this.focus();
 	},
+
+    destroy: function() {
+        this.element.remove();
+    },
 
     enterInitialMode: function() {
         var me = this;
