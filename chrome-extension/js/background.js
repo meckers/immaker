@@ -58,7 +58,8 @@ chrome.runtime.onMessage.addListener(
         chrome.tabs.create({ url: request.url });
     }
     else if (request.command == 'quit') {
-        active = false;
+        // doesn't work as intended:
+        //chrome.runtime.reload();
     }
 
     return true;

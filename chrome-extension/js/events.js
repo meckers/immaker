@@ -13,6 +13,10 @@ Events = {
                 e.callback.apply(e.context, [data]);
             }
         });
+    },
+
+    purge: function() {
+        this.listeners = [];
     }
 }
 

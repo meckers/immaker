@@ -1,23 +1,26 @@
 var MacroMaker = MacroMaker || {};
 
-MacroMaker.MouseSelection = {
+MacroMaker.MouseSelection = Class.extend({
 
+    id: null,
     mouseDownHandler: null,
     mouseUpHandler: null,
     mouseMoveHandler: null,
     shroud: null,
     border: '3px dashed yellow',
 
-    init: function(container) {
-        this.$container = $(container) || $('body');
-        this.shroud = MacroMaker.Shroud;
-        this.shroud.init("body", 3);
+    init: function(options) {
+        this.id = Math.ceil(Math.random()*1000);
+        this.$container = $(options.container) || $('body');
+        if (options.shroud) {
+            this.shroud = new MacroMaker.Shroud('body', 3);
+        }
         this.activate();
         this.listen();
     },
 
     activate: function() {
-        this.shroud.activate();
+        //this.shroud.activate();
         this.active = true;
     },
 
@@ -36,7 +39,6 @@ MacroMaker.MouseSelection = {
         })*/
 
         $('body').bind('mousedown', function(e) {
-            console.log("mouse down");
             me.handleMouseDown(e);
         });
         $('body').bind('mouseup', function(e) {
@@ -47,20 +49,16 @@ MacroMaker.MouseSelection = {
         });
     },
 
-    onCancelSelection: function() {
-        this.dismantle();
-        MacroMaker.Messages.sendEvent("SELECTION_CANCELLED");
-    },
 
     handleMouseDown: function(e) {
         if (this.active && !this.done && e.which == 1) {
-            console.log("left mouse button down");
             this.startBoxDraw(e.pageX, e.pageY);
             e.stopPropagation();
         }
     },
 
     handleMouseUp: function(e) {
+        console.log("mouse up on", this.id);
         if (this.active) {
             // if selecting:
             if (this.drawing) {
@@ -76,7 +74,6 @@ MacroMaker.MouseSelection = {
     handleMouseMove: function(e) {
         //console.log("M.M. pageXY=", e.pageX, e.pageY, "clientXY=", e.clientX, e.clientY);
         if (this.active) {
-            console.log("mouse move", this.drawing);
             if (this.drawing) {
                 var mouseX = parseInt(e.pageX);
                 var mouseY = parseInt(e.pageY);
@@ -91,7 +88,7 @@ MacroMaker.MouseSelection = {
                 this.box.css('width', boxWidth);
                 this.box.css('height', boxHeight);
 
-                this.shroud.onBoxDraw(mouseX, mouseY);
+                Events.trigger("BOX_DRAW", {x: mouseX, y: mouseY});
 
                 e.stopPropagation();
                 e.preventDefault();
@@ -108,15 +105,11 @@ MacroMaker.MouseSelection = {
         return el;
     },
 
-    destroyBox: function() {
-        if (this.box) {
-            this.box.remove();
-            this.box = null;
-        }
+    getBox: function() {
+        return this.box;
     },
 
     startBoxDraw: function(x, y) {
-        console.log("start box draw", this);
         this.drawing = true;
         this.startX = x;
         this.startY = y;
@@ -129,7 +122,7 @@ MacroMaker.MouseSelection = {
             if (this.callback) {
                 this.callback(this.element);
             }
-            Events.trigger("BOX_SELECTION_COMPLETE", this.box);
+            Events.trigger("MOUSE_SELECTION_COMPLETE", this.box);
             //this.shroud.remove();
         }
         else {
@@ -154,9 +147,21 @@ MacroMaker.MouseSelection = {
         return this.box.css('border-width').replace('px', '');
     },
 
+    destroy: function() {
+        if (this.box) {
+            this.box.remove();
+            this.box = null;
+        }
+        if (this.shroud) {
+            this.shroud.destroy();
+            this.shroud = null;
+        }
+    },
+
+    /*
     dismantle: function() {
         this.destroyBox();
-        this.shroud.remove();
+        //this.shroud.remove();
         this.active = false;
         this.done = false;
     },
@@ -164,6 +169,10 @@ MacroMaker.MouseSelection = {
     reset: function() {
         this.dismantle();
         this.activate();
+    },*/
+
+    appendElement: function(element) {
+        this.box.append(element);
     }
 
-}
+});

@@ -6,19 +6,29 @@ MacroMaker.App = {
 	baseUrl: 'http://localhost:9881',
 
 	init: function() {
-		this.frame = new MacroMaker.Frame();
+		//this.frame = new MacroMaker.Frame();
+        this.GUI = new MacroMaker.GUI('body');
+        this.listen();
 	},
 
+    listen: function() {
+        var me = this;
+        Events.register('QUIT', this, function() {
+            me.quit();
+        })
+    },
 
     quit: function() {
-
+        this.GUI.destroy();
+        this.GUI = null;
+        chrome.runtime.sendMessage({
+            command: "quit"
+        });
     },
 
     /*
     quit: function() {
-        chrome.runtime.sendMessage({
-            command: "quit"
-        });
+
     },
 
 	registerListeners: function() {

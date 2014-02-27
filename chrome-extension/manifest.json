@@ -19,7 +19,7 @@
       "js/simple-javascript-inheritance.js",
       "js/events.js",
       "js/app.js",
-      "js/frame.js",
+      "js/GUI.js",
       "js/texteditor.js",
       "js/mouseselection.js",
       "js/shroud.js"

@@ -5,17 +5,15 @@ MacroMaker.TextEditor = Class.extend({
 	hidden: false,
     editMode: false,
 
-    init: function() {
-
+    init: function(container, dockLocation) {
+        this.create(container, dockLocation);
     },
 
 	create: function(container, dockLocation) {
 		var me = this;
 		this.$container = $(container);
 		this.element = jQuery("<div></div>");
-		this.element.attr('id', 'chinti-texteditor');
-		this.element.addClass('imkr caption');
-		this.element.addClass('imkr outlined');
+		this.element.addClass('imkr caption outlined');
 
 		this.width = Math.ceil(this.$container.width() * 0.66);
 		this.height = Math.ceil(this.$container.height() * 0.2);
@@ -43,6 +41,10 @@ MacroMaker.TextEditor = Class.extend({
 
 		//this.focus();
 	},
+
+    getElement: function() {
+        return this.element;
+    },
 
     destroy: function() {
         this.element.remove();

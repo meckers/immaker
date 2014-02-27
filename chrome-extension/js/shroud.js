@@ -1,6 +1,6 @@
 var MacroMaker = MacroMaker || {};
 
-MacroMaker.Shroud = {
+MacroMaker.Shroud = Class.extend({
 
     startEl: null,
     leftEl: null,
@@ -12,19 +12,20 @@ MacroMaker.Shroud = {
         this.offset = offset;
         this.$container = $(container);
         this.listen();
+        this.create();
+        this.shroudAll();
     },
 
     listen: function() {
         var me = this;
 
-        Events.register("BOX_DRAW_START", this, function(coordinates) {
-            me.onBoxDrawStart(coordinates);
+        Events.register("BOX_DRAW_START", this, function(coords) {
+            me.onBoxDrawStart(coords);
         })
-    },
 
-    activate: function() {
-        this.create();
-        this.shroudAll();
+        Events.register("BOX_DRAW", this, function(coords) {
+            me.onBoxDraw(coords.x, coords.y);
+        })
     },
 
     shroudAll: function() {
@@ -76,7 +77,7 @@ MacroMaker.Shroud = {
         this.$container.append(this.rightEl);
     },
 
-    remove: function() {
+    destroy: function() {
         this.startEl.remove();
         this.leftEl.remove();
         this.overEl.remove();
@@ -107,4 +108,4 @@ MacroMaker.Shroud = {
         this.shroudAll();
     }
 
-}
+});
