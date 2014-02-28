@@ -1,24 +1,25 @@
 var MacroMaker = MacroMaker || {};
 
 MacroMaker.App = {
-	
-	frame: null,
+
 	baseUrl: 'http://localhost:9881',
+    running: false,
 
 	init: function() {
-		//this.frame = new MacroMaker.Frame();
+        this.running = true;
         this.GUI = new MacroMaker.GUI('body');
         this.listen();
 	},
 
     listen: function() {
         var me = this;
-        Events.register('QUIT', this, function() {
+        MacroMaker.Events.register('QUIT', this, function() {
             me.quit();
         })
     },
 
     quit: function() {
+        this.running = false;
         this.GUI.destroy();
         this.GUI = null;
         chrome.runtime.sendMessage({
@@ -63,7 +64,7 @@ MacroMaker.App = {
                     command: "new-tab",
                     url: me.baseUrl + "/" + data.imageId
                 });
-                Events.trigger("IMAGE_SAVE_COMPLETE", data);
+                MacroMaker.Events.trigger("IMAGE_SAVE_COMPLETE", data);
             }
         });
     }

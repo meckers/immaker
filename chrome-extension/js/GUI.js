@@ -5,6 +5,7 @@ MacroMaker.GUI = Class.extend({
     container: null,
 
     init: function(container) {
+        this.id = Math.ceil(Math.random()*1000);
         var me = this;
         this.container = $(container);
         //this.shroud = new MacroMaker.shroud(this.container);
@@ -17,12 +18,13 @@ MacroMaker.GUI = Class.extend({
 
     listen: function() {
         var me = this;
-        Events.register('MOUSE_SELECTION_COMPLETE', this, function(e) {
+        MacroMaker.Events.register('MOUSE_SELECTION_COMPLETE', this, function(e) {
             me.onMouseSelectionComplete(e);
         });
     },
 
     onMouseSelectionComplete: function(e) {
+        console.log("mouse selection complete. id=", this.id);
         var me = this;
         //this.selection = e.selection;
         this.grabButton = this.createButton("SAVE & SHARE", "save", "positive", function() {
@@ -30,7 +32,7 @@ MacroMaker.GUI = Class.extend({
         });
         this.mouseSelection.appendElement(this.grabButton);
         this.cancelButton = this.createButton("CANCEL", "cancel", "negative", function() {
-            Events.trigger("QUIT", null);
+            MacroMaker.Events.trigger("QUIT", null);
         });
         this.mouseSelection.appendElement(this.cancelButton);
 
@@ -47,6 +49,66 @@ MacroMaker.GUI = Class.extend({
         button.addClass("imkr button hanging " + name + " " + style);
         button.click(callback);
         return button;
+    },
+
+    grab: function() {
+        var me = this;
+        this.captureImages(function() {
+            //me.mouseSelection.showBorder();
+            //ClipNote.Messages.sendMessage("POST_GRAB");
+        });
+    },
+
+    captureImages: function(callback) {
+        var me = this;
+        chrome.runtime.sendMessage({
+            command: "capture-tab"
+        }, function(response) {
+            //document.getElementById('chinti-texteditor').style.display = 'none';
+            $(".caption").css('display', 'none');
+            if (response.image) {
+                me.imageWithCaption = response.image;
+            }
+            //me.textEditor.show();
+
+            // TODO: DETTA MÅSTE FIXAS, vi kan inte förlita oss på en setTimout.
+            setTimeout(function() {
+                chrome.runtime.sendMessage({
+                    command: "capture-tab"
+                }, function(secondResponse) {
+                    if (secondResponse.image) {
+                        me.image = secondResponse.image;
+                        //document.getElementById('chinti-texteditor').style.display = 'block';
+                        $(".caption").css('display', 'block');
+                        me.checkIfReadyToPost();
+                        if (callback) {
+                            callback();
+                        }
+                    }
+                });
+            }, 500);
+
+        });
+    },
+
+    checkIfReadyToPost: function() {
+        if (this.imageWithCaption && this.image) {
+            var values = this.getValues();
+            console.log(this.imageWithCaption.substr(this.imageWithCaption.length-10), this.image.substr(this.image.length-10));
+            MacroMaker.App.postDataAjax(this.imageWithCaption, this.image, values.top, values.left, values.width, values.height);
+            return true;
+        }
+    },
+
+    getValues: function() {
+        var values = this.mouseSelection.getValues();
+        var borderWidth = parseInt(this.mouseSelection.borderWidth());
+        values.top += borderWidth;
+        values.left += borderWidth;
+        values.width -= borderWidth;
+        values.height -= borderWidth;
+        console.log(values);
+        return values;
     },
 
     // Destroy all elements that are present.

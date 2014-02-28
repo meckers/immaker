@@ -19,17 +19,16 @@ MacroMaker.Shroud = Class.extend({
     listen: function() {
         var me = this;
 
-        Events.register("BOX_DRAW_START", this, function(coords) {
+        MacroMaker.Events.register("BOX_DRAW_START", this, function(coords) {
             me.onBoxDrawStart(coords);
         })
 
-        Events.register("BOX_DRAW", this, function(coords) {
+        MacroMaker.Events.register("BOX_DRAW", this, function(coords) {
             me.onBoxDraw(coords.x, coords.y);
         })
     },
 
     shroudAll: function() {
-        console.log("shrouding all");
         this.startEl = $("<div></div>").addClass('imkr shroud start');
         this.startEl.css({
             'width': $(document).width() + 'px',

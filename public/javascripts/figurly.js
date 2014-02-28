@@ -22,14 +22,14 @@ Figurly.SideBar = {
             me.recieveMessage(e);
         });
 
-        Events.register("SELECTION_ACTIVATED", this, function(e) {
+        MacroMaker.Events.register("SELECTION_ACTIVATED", this, function(e) {
             // deactivate selection button
             //$('#start-selection-button').attr('disabled', 'true');
             $('#start-selection-button').attr('value', 'EXIT SELECT MODE');
             me.selecting = true;
         });
 
-        Events.register("SELECTION_CANCELLED", this, function(e) {
+        MacroMaker.Events.register("SELECTION_CANCELLED", this, function(e) {
             // re-activate selection button
             //$('#start-selection-button').removeAttr('disabled');
             $('#start-selection-button').attr('value', 'ENTER SELECT MODE');

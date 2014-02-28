@@ -2,6 +2,13 @@ jQuery(function() {
 	//openSidebar();
 	//enableSelection();
 	//createGrabButton();
-    MacroMaker.App.init();
+    if (!MacroMaker.App.running) {
+        MacroMaker.Events = new Events();
+        MacroMaker.App.init();
+    }
+    else {
+        MacroMaker.App.quit();
+    }
+
     //MacroMaker.App.activate();
 });

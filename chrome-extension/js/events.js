@@ -1,10 +1,15 @@
-Events = {
+Events = Class.extend({
 
     listeners: [],
+
+    init: function() {
+        this.listeners = [];
+    },
 
     register: function(name, context, callback) {
         var listener = new Listener(name, context, callback);
         this.listeners.push(listener);
+        console.log("added listener. listeners now", this.listeners);
     },
 
     trigger: function(name, data) {
@@ -18,7 +23,7 @@ Events = {
     purge: function() {
         this.listeners = [];
     }
-}
+});
 
 Listener = Class.extend({
 

@@ -8,6 +8,7 @@ MacroMaker.MouseSelection = Class.extend({
     mouseMoveHandler: null,
     shroud: null,
     border: '3px dashed yellow',
+    handlers: [],
 
     init: function(options) {
         this.id = Math.ceil(Math.random()*1000);
@@ -38,15 +39,13 @@ MacroMaker.MouseSelection = Class.extend({
             me.dismantle();
         })*/
 
-        $('body').bind('mousedown', function(e) {
-            me.handleMouseDown(e);
-        });
-        $('body').bind('mouseup', function(e) {
-            me.handleMouseUp(e);
-        });
-        $('body').bind('mousemove', function(e) {
-            me.handleMouseMove(e);
-        });
+        this.hmd = $.proxy(this.handleMouseDown, this);
+        this.hmu = $.proxy(this.handleMouseUp, this);
+        this.hmm = $.proxy(this.handleMouseMove, this);
+
+        $('body').bind('mousedown', this.hmd);
+        $('body').bind('mouseup', this.hmu);
+        $('body').bind('mousemove', this.hmm);
     },
 
 
@@ -88,7 +87,7 @@ MacroMaker.MouseSelection = Class.extend({
                 this.box.css('width', boxWidth);
                 this.box.css('height', boxHeight);
 
-                Events.trigger("BOX_DRAW", {x: mouseX, y: mouseY});
+                MacroMaker.Events.trigger("BOX_DRAW", {x: mouseX, y: mouseY});
 
                 e.stopPropagation();
                 e.preventDefault();
@@ -113,7 +112,7 @@ MacroMaker.MouseSelection = Class.extend({
         this.drawing = true;
         this.startX = x;
         this.startY = y;
-        Events.trigger("BOX_DRAW_START", { x: x, y: y });
+        MacroMaker.Events.trigger("BOX_DRAW_START", { x: x, y: y });
     },
 
     endBoxDraw: function() {
@@ -122,7 +121,7 @@ MacroMaker.MouseSelection = Class.extend({
             if (this.callback) {
                 this.callback(this.element);
             }
-            Events.trigger("MOUSE_SELECTION_COMPLETE", this.box);
+            MacroMaker.Events.trigger("MOUSE_SELECTION_COMPLETE", this.box);
             //this.shroud.remove();
         }
         else {
@@ -156,6 +155,10 @@ MacroMaker.MouseSelection = Class.extend({
             this.shroud.destroy();
             this.shroud = null;
         }
+
+        $('body').unbind('mousedown', this.hmd);
+        $('body').unbind('mouseup', this.hmu);
+        $('body').unbind('mousemove', this.hmm);
     },
 
     /*
