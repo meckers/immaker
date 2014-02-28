@@ -48,16 +48,20 @@ MacroMaker.App = {
 
         console.log("posting via AJAX. retina=", isRetina, "multiplier=", multiplier);
 
-        var me = this;
-        $.post(this.baseUrl + '/edit/createajax', {
+        var data = {
             'imageWithCaption': imageWithCaption,
             'imageNoCaption': image,
-            'top': top * multiplier,
-            'left': left * multiplier,
-            'width': width * multiplier,
-            'height': height * multiplier,
+            'top': Math.ceil(top * multiplier),
+            'left': Math.ceil(left * multiplier),
+            'width': Math.ceil(width * multiplier),
+            'height': Math.ceil(height * multiplier),
             'retina': isRetina
-        }, function(data) {
+        };
+
+        console.log("url", this.baseUrl + '/edit/createajax', "data", data);
+
+        var me = this;
+        $.post(this.baseUrl + '/edit/createajax', data, function(data) {
             console.log(data);
             if (data.imageId) {
                 chrome.runtime.sendMessage({

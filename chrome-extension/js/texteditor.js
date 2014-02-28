@@ -18,11 +18,13 @@ MacroMaker.TextEditor = Class.extend({
 		this.width = Math.ceil(this.$container.width() * 0.66);
 		this.height = Math.ceil(this.$container.height() * 0.2);
         this.fontSize = Math.ceil(this.height * 0.5);
+        this.lineHeight = this.fontSize;
 
 		this.element.css({
 			'width': this.width + 'px',
 			'left': (this.$container.width()/2) - this.width/2 + 'px',
-            'font-size': this.fontSize + 'px'
+            'font-size': this.fontSize + 'px',
+            'line-height': this.lineHeight + 'px'
 		});
 
         this.element.css(dockLocation, '0px');
