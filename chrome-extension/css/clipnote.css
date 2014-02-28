@@ -1,16 +1,15 @@
 
 .imkr.textedit-button {
-	padding: 3px;
-	border: 1px solid black;
-	background-color: wheat;
-	top: 416px;
-	left: 500px;
-	width: 54px;
-	height: 14px;
-	position: absolute;
-	z-index: 100;
-	color: black;
-	cursor: pointer;
+    padding: 3px;
+    border: 1px solid black;
+    background-color: wheat;
+    top: 416px;
+    left: 500px;
+    width: 54px;
+    height: 14px;
+    position: absolute;
+    color: black;
+    cursor: pointer;
 }
 
 .imkr.button.hanging {
@@ -23,14 +22,13 @@
     border-top-right-radius: 0;
     bottom: -39px;
     position: absolute;
-    z-index: 100;
     color: black;
     cursor: pointer;
     background-color: white;
 }
 
 .imkr.button.hanging.save {
-	right: 20px;
+    right: 20px;
 }
 
 .imkr.button.hanging.cancel {
@@ -38,17 +36,17 @@
 }
 
 .imkr.snapshot-button:hover {
-	background-color: #efefef;
+    background-color: #efefef;
 }
 
 .imkr.caption {
-	padding: 3px;
+    padding: 3px;
     font-family: "Impact", arial, tahoma;
     text-align: center;
-	font-weight: bold;
-	color: white;
-	position: absolute;
-	z-index: 100;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    z-index: 100;
 }
 
 .imkr.caption.initial-mode {
@@ -65,39 +63,39 @@
 .imkr.caption.outlined
 {
     text-shadow:
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    2px 2px 0 #000;
-    
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
+
 }
 
 .imkr.caption.hidden {
-	display: none;
+    display: none;
 }
 
 .imkr.sidebar {
-	z-index: 2000000000;
-	width: 300px;
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	border: none;
-	margin: 0;
-	padding: 0;
-	/*border-left: 2px solid black; */
+    z-index: 2000000000;
+    width: 300px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border: none;
+    margin: 0;
+    padding: 0;
+    /*border-left: 2px solid black; */
 }
 
 .imkr.delimiter {
-     z-index: 2000000000;
-     width: 5px;
-     /*height: 100%;*/
-     position: absolute;
-     top: 0px;
-     right: 300px;
-     background-color: black;
-     margin: 0;
-     padding: 0;
+    z-index: 2000000000;
+    width: 5px;
+    /*height: 100%;*/
+    position: absolute;
+    top: 0px;
+    right: 300px;
+    background-color: black;
+    margin: 0;
+    padding: 0;
 }
 
 .imkr.handle {
@@ -113,13 +111,13 @@
 }
 
 .imkr.caption:hover, .caption:active {
-	border: 1px dotted white;
+    border: 1px dotted white;
 }
 
 .imkr.mouse-selection {
-	/*border: 3px dotted yellow;*/
-	position: absolute;
-	z-index: 200000;
+    /*border: 3px dotted yellow;*/
+    position: absolute;
+    z-index: 2000200000;;
 }
 
 
@@ -132,7 +130,7 @@
     background-color: black;
     opacity: 0.3;
     position:absolute;
-    z-index: 200000;
+    z-index: 2000100000;
 }
 
 .imkr.shroud.start {
@@ -162,11 +160,11 @@
 }
 
 .imkr.no-border {
-	border: none;
+    border: none;
 }
 
 .imkr.hidden {
-	display: none;
+    display: none;
 }
 
 .imkr.button {
