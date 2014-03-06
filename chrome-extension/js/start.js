@@ -1,7 +1,4 @@
 jQuery(function() {
-	//openSidebar();
-	//enableSelection();
-	//createGrabButton();
     if (!MacroMaker.App.running) {
         MacroMaker.Events = new Events();
         MacroMaker.App.init();
@@ -9,6 +6,4 @@ jQuery(function() {
     else {
         MacroMaker.App.quit();
     }
-
-    //MacroMaker.App.activate();
 });

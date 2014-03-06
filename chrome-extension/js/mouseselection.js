@@ -21,23 +21,11 @@ MacroMaker.MouseSelection = Class.extend({
     },
 
     activate: function() {
-        //this.shroud.activate();
         this.active = true;
     },
 
     listen: function() {
         var me = this;
-        /*
-        Events.register("START_SELECTION_BUTTON_CLICK", this, function() {
-            me.activate();
-            ClipNote.Messages.sendEvent("SELECTION_ACTIVATED");
-        });
-        Events.register("CANCEL_SELECTION_CLICK", this, function() {
-            me.onCancelSelection();
-        });
-        Events.register("SAVE_AND_SHARE", this, function() {
-            me.dismantle();
-        })*/
 
         this.hmd = $.proxy(this.handleMouseDown, this);
         this.hmu = $.proxy(this.handleMouseUp, this);
@@ -160,19 +148,6 @@ MacroMaker.MouseSelection = Class.extend({
         $('body').unbind('mouseup', this.hmu);
         $('body').unbind('mousemove', this.hmm);
     },
-
-    /*
-    dismantle: function() {
-        this.destroyBox();
-        //this.shroud.remove();
-        this.active = false;
-        this.done = false;
-    },
-
-    reset: function() {
-        this.dismantle();
-        this.activate();
-    },*/
 
     appendElement: function(element) {
         this.box.append(element);

@@ -45,11 +45,6 @@ chrome.runtime.onMessage.addListener(
                     image: imageData,
                     test: request.test
                 });
-                /*respond({
-                    image: imgUrl,
-                    originalCommand: request.command,
-                    captionVisible: request.captionVisible
-                });*/
             });    
         });
 

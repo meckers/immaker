@@ -41,7 +41,6 @@ MacroMaker.TextEditor = Class.extend({
 
 		jQuery(container).append(this.element);
 
-		//this.focus();
 	},
 
     getElement: function() {
@@ -87,11 +86,9 @@ MacroMaker.TextEditor = Class.extend({
 
 	hide: function() {		
 		this.element.addClass('hidden');
-		//this.hidden = true;
 	},
 
 	show: function() {
 		this.element.removeClass('hidden');
-		//this.hidden = false;
 	}
 });
