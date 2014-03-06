@@ -46,7 +46,7 @@ MacroMaker.GUI = Class.extend({
         var me = this;
         var button = jQuery("<div></div>");
         button.html(text);
-        button.addClass("imkr button hanging " + name + " " + style);
+        button.addClass("imkr imkr-button hanging " + name + " " + style);
         button.click(callback);
         return button;
     },

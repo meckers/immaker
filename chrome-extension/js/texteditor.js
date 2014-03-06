@@ -13,7 +13,7 @@ MacroMaker.TextEditor = Class.extend({
 		var me = this;
 		this.$container = $(container);
 		this.element = jQuery("<div></div>");
-		this.element.addClass('imkr caption outlined');
+		this.element.addClass('imkr imkr-caption outlined');
 
 		this.width = Math.ceil(this.$container.width() * 0.66);
 		this.height = Math.ceil(this.$container.height() * 0.2);
@@ -30,7 +30,7 @@ MacroMaker.TextEditor = Class.extend({
         this.element.css(dockLocation, '0px');
 		this.element.attr('contenteditable', 'true');
 		this.element.attr('spellcheck', 'false');
-		this.element.html('Enter your caption');
+		this.element.html('Click to enter caption');
 		this.element.on('click', function() {
 			me.focus();
 		});

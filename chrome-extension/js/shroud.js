@@ -29,7 +29,7 @@ MacroMaker.Shroud = Class.extend({
     },
 
     shroudAll: function() {
-        this.startEl = $("<div></div>").addClass('imkr shroud start');
+        this.startEl = $("<div></div>").addClass('imkr shroud imkr-start');
         this.startEl.css({
             'width': $(document).width() + 'px',
             'height': $(document).height() + 'px'
@@ -65,10 +65,10 @@ MacroMaker.Shroud = Class.extend({
             this.startEl.remove();
         }
 
-        this.leftEl = $("<div></div>").addClass('imkr shroud left');
-        this.overEl = $("<div></div>").addClass('imkr shroud over');
-        this.underEl = $("<div></div>").addClass('imkr shroud under');
-        this.rightEl = $("<div></div>").addClass('imkr shroud right');
+        this.leftEl = $("<div></div>").addClass('imkr shroud imkr-left');
+        this.overEl = $("<div></div>").addClass('imkr shroud imkr-over');
+        this.underEl = $("<div></div>").addClass('imkr shroud imkr-under');
+        this.rightEl = $("<div></div>").addClass('imkr shroud imkr-right');
 
         this.$container.append(this.leftEl);
         this.$container.append(this.overEl);
