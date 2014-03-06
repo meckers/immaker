@@ -13,6 +13,9 @@ MacroMaker.App = {
 
     listen: function() {
         var me = this;
+        MacroMaker.Events.register('IMAGE_SAVE_COMPLETE', this, function() {
+            me.quit();
+        })
         MacroMaker.Events.register('QUIT', this, function() {
             me.quit();
         })
