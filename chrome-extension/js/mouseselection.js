@@ -45,11 +45,10 @@ MacroMaker.MouseSelection = Class.extend({
     },
 
     handleMouseUp: function(e) {
-        console.log("mouse up on", this.id);
         if (this.active) {
             // if selecting:
             if (this.drawing) {
-                this.endBoxDraw();
+                this.endBoxDraw(e.pageX, e.pageY);
                 e.stopPropagation();
                 e.preventDefault();
                 this.done = true;
@@ -103,13 +102,13 @@ MacroMaker.MouseSelection = Class.extend({
         MacroMaker.Events.trigger("BOX_DRAW_START", { x: x, y: y });
     },
 
-    endBoxDraw: function() {
+    endBoxDraw: function(x, y) {
         this.drawing = false;
         if (!this.isTooSmall()) {
             if (this.callback) {
                 this.callback(this.element);
             }
-            MacroMaker.Events.trigger("MOUSE_SELECTION_COMPLETE", this.box);
+            MacroMaker.Events.trigger("BOX_DRAW_END", { x: x, y: y });
             //this.shroud.remove();
         }
         else {

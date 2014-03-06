@@ -7,6 +7,8 @@ MacroMaker.Shroud = Class.extend({
     overEl: null,
     underEl: null,
     rightEl: null,
+    finalMouseX: null,
+    finalMouseY: null,
 
     init: function(container, offset) {
         this.offset = offset;
@@ -23,9 +25,20 @@ MacroMaker.Shroud = Class.extend({
             me.onBoxDrawStart(coords);
         })
 
+        MacroMaker.Events.register("BOX_DRAW_END", this, function(coords) {
+            me.finalMouseX = coords.x;
+            me.finalMouseY = coords.y;
+            this.hwr = $.proxy(me.handleWindowResize, this);
+            $(window).bind('resize', this.hwr);
+        })
+
         MacroMaker.Events.register("BOX_DRAW", this, function(coords) {
             me.onBoxDraw(coords.x, coords.y);
         })
+    },
+
+    handleWindowResize: function(e) {
+        this.transform(this.finalMouseX, this.finalMouseY);
     },
 
     shroudAll: function() {

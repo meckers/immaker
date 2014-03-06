@@ -18,12 +18,12 @@ MacroMaker.GUI = Class.extend({
 
     listen: function() {
         var me = this;
-        MacroMaker.Events.register('MOUSE_SELECTION_COMPLETE', this, function(e) {
-            me.onMouseSelectionComplete(e);
+        MacroMaker.Events.register('BOX_DRAW_END', this, function(e) {
+            me.onMouseSelectionComplete();
         });
     },
 
-    onMouseSelectionComplete: function(e) {
+    onMouseSelectionComplete: function() {
         console.log("mouse selection complete. id=", this.id);
         var me = this;
         //this.selection = e.selection;
