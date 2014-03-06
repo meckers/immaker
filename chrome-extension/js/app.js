@@ -9,6 +9,7 @@ MacroMaker.App = {
         this.running = true;
         this.GUI = new MacroMaker.GUI('body');
         this.listen();
+        $('body').addClass('imkr-stop-scrolling');
 	},
 
     listen: function() {
@@ -28,6 +29,7 @@ MacroMaker.App = {
         chrome.runtime.sendMessage({
             command: "quit"
         });
+        $('body').removeClass('imkr-stop-scrolling');
     },
 
 

@@ -21,6 +21,7 @@ MacroMaker.GUI = Class.extend({
         MacroMaker.Events.register('BOX_DRAW_END', this, function(e) {
             me.onMouseSelectionComplete();
         });
+
     },
 
     onMouseSelectionComplete: function() {

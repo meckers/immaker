@@ -58,7 +58,6 @@ MacroMaker.MouseSelection = Class.extend({
     },
 
     handleMouseMove: function(e) {
-        //console.log("M.M. pageXY=", e.pageX, e.pageY, "clientXY=", e.clientX, e.clientY);
         if (this.active) {
             if (this.drawing) {
                 var mouseX = parseInt(e.pageX);

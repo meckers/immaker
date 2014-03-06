@@ -218,3 +218,8 @@
     background: linear-gradient(to bottom,  rgba(201,222,150,1) 0%,rgba(57,130,53,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=0 ); /* IE6-9 */
 }
+
+.imkr-stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+}
