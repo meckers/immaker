@@ -3,6 +3,7 @@ MacroMaker = MacroMaker || {};
 MacroMaker.GUI = Class.extend({
 
     container: null,
+    progressImage: null,
 
     init: function(container) {
         this.id = Math.ceil(Math.random()*1000);
@@ -21,15 +22,25 @@ MacroMaker.GUI = Class.extend({
         MacroMaker.Events.register('BOX_DRAW_END', this, function(e) {
             me.onMouseSelectionComplete();
         });
-
+        MacroMaker.Events.register('IMAGE_SAVE_COMPLETE', this, function() {
+            me.hideProgressIcon();
+            me.enableButton(me.grabButton);
+        })
     },
 
     onMouseSelectionComplete: function() {
-        console.log("mouse selection complete. id=", this.id);
         var me = this;
         //this.selection = e.selection;
         this.grabButton = this.createButton("SAVE & SHARE", "save", "positive", function() {
-            me.grab();
+            if (me.grabButton.hasClass('imkr-disabled') === false) {
+                console.log("GRABBING!");
+                me.disableButton(me.grabButton);
+                me.showProgressIcon();
+                me.grab();
+            }
+            else {
+                console.log("NO GRAB FOR YOU");
+            }
         });
         this.mouseSelection.appendElement(this.grabButton);
         this.cancelButton = this.createButton("CANCEL", "cancel", "negative", function() {
@@ -41,6 +52,15 @@ MacroMaker.GUI = Class.extend({
         this.mouseSelection.appendElement(this.textTop.getElement());
         this.textBottom = new MacroMaker.TextEditor(this.mouseSelection.getBox(), "top");
         this.mouseSelection.appendElement(this.textBottom.getElement());
+
+    },
+
+    disableButton: function(button) {
+        button.addClass('imkr-disabled');
+    },
+
+    enableButton: function(button) {
+        button.removeClass('imkr-disabled');
     },
 
     createButton: function(text, name, style, callback) {
@@ -99,6 +119,22 @@ MacroMaker.GUI = Class.extend({
             MacroMaker.App.postDataAjax(this.imageWithCaption, this.image, values.top, values.left, values.width, values.height);
             return true;
         }
+    },
+
+    showProgressIcon: function() {
+        /*
+        var url = chrome.extension.getURL('images/progress.gif');
+        console.log("extension url", url);
+        this.progressImage = $("<img/>");
+        this.progressImage.attr('src', url);
+        this.progressImage.addClass("imkr-progress");
+        this.mouseSelection.getBox().append(this.progressImage);
+        */
+        this.grabButton.html("WORKING...");
+    },
+
+    hideProgressIcon: function() {
+        //this.progressImage.remove();
     },
 
     getValues: function() {

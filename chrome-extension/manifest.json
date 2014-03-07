@@ -28,6 +28,8 @@
       "css": ["css/clipnote.css"]
     }],
 
+    "web_accessible_resources" : ["/images/*.gif"],
+
       "browser_action": {
         "default_icon": "icon.png"
     }
