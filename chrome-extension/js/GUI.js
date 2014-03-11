@@ -4,6 +4,7 @@ MacroMaker.GUI = Class.extend({
 
     container: null,
     progressImage: null,
+    canvas: null,
 
     init: function(container) {
         this.id = Math.ceil(Math.random()*1000);
@@ -74,10 +75,55 @@ MacroMaker.GUI = Class.extend({
 
     grab: function() {
         var me = this;
-        this.captureImages(function() {
+        this.captureImagesWithCanvas(function() {
             //me.mouseSelection.showBorder();
             //ClipNote.Messages.sendMessage("POST_GRAB");
         });
+    },
+
+    captureImagesWithCanvas: function() {
+        var me = this;
+        var selectionValues = this.getValues();
+        var isRetina = window.devicePixelRatio > 1;
+        var multiplier = isRetina ? 2 : 1;
+
+        console.log("selection values", selectionValues, "multiplier", multiplier);
+        chrome.runtime.sendMessage({command:"capture-tab"}, function(response) {
+            if (!me.canvas) {
+                me.canvas = $("<canvas></canvas>");
+                me.canvas.css({
+                    'display': 'none'
+                });
+                $('body').append(me.canvas);
+            }
+
+            var image = new Image();
+            image.onload = function() {
+                var cvs = me.canvas[0];
+                cvs.width = selectionValues.width * multiplier;
+                cvs.height = selectionValues.height * multiplier;
+                var context = cvs.getContext('2d');
+                context.drawImage(image,
+                    selectionValues.left * multiplier,
+                    selectionValues.top * multiplier,
+                    selectionValues.width * multiplier,
+                    selectionValues.height * multiplier,
+                    0, 0,
+                    selectionValues.width * multiplier,
+                    selectionValues.height * multiplier
+                );
+
+                me.imageWithCaption = cvs.toDataURL("image/png");
+                me.image = me.imageWithCaption;
+                me.checkIfReadyToPost();
+            }
+
+            image.src = response.image;
+        });
+    },
+
+    doCapture: function() {
+
     },
 
     captureImages: function(callback) {
@@ -86,7 +132,7 @@ MacroMaker.GUI = Class.extend({
             command: "capture-tab"
         }, function(response) {
             //document.getElementById('chinti-texteditor').style.display = 'none';
-            $(".caption").css('display', 'none');
+            $(".imkr-caption").css('display', 'none');
             if (response.image) {
                 me.imageWithCaption = response.image;
             }
@@ -100,7 +146,7 @@ MacroMaker.GUI = Class.extend({
                     if (secondResponse.image) {
                         me.image = secondResponse.image;
                         //document.getElementById('chinti-texteditor').style.display = 'block';
-                        $(".caption").css('display', 'block');
+                        $(".imkr-caption").css('display', 'block');
                         me.checkIfReadyToPost();
                         if (callback) {
                             callback();

@@ -54,10 +54,12 @@ public class Edit extends Controller {
         try{
             BufferedImage imageWithCaption = ImageHelpers.decodeToImage(params.get("imageWithCaption"));
             BufferedImage imageNoCaption = ImageHelpers.decodeToImage(params.get("imageNoCaption"));
+            /*
             int top = Integer.parseInt(params.get("top"));
             int left = Integer.parseInt(params.get("left"));
             int width = Integer.parseInt(params.get("width"));
             int height = Integer.parseInt(params.get("height"));
+            */
 
             Image image = null;
 
@@ -66,10 +68,10 @@ public class Edit extends Controller {
             image.setPublished(true);
             ImageStore.save(image);
 
-            FrameDO.save(imageWithCaption, image.getId(), image.getId(), "_o");
+            //FrameDO.save(imageWithCaption, image.getId(), image.getId(), "_o");
 
-            imageWithCaption = ImageHelpers.cropImage(imageWithCaption, top, left, width, height);
-            imageNoCaption = ImageHelpers.cropImage(imageNoCaption, top, left, width, height);
+            //imageWithCaption = ImageHelpers.cropImage(imageWithCaption, top, left, width, height);
+            //imageNoCaption = ImageHelpers.cropImage(imageNoCaption, top, left, width, height);
 
             FrameDO.save(imageWithCaption, image.getId(), image.getId(), "");
             FrameDO.save(imageNoCaption, image.getId(), image.getId(), "_t");

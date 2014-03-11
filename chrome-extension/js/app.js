@@ -3,6 +3,7 @@ var MacroMaker = MacroMaker || {};
 MacroMaker.App = {
 
 	baseUrl: 'http://localhost:9881',
+    //baseUrl: 'http://blog.eckers.se',
     running: false,
 
 	init: function() {
@@ -47,6 +48,8 @@ MacroMaker.App = {
             'height': Math.ceil(height * multiplier),
             'retina': isRetina
         };
+
+        console.log("posting data", data);
 
         var me = this;
         $.post(this.baseUrl + '/edit/createajax', data, function(data) {
