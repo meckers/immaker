@@ -63,6 +63,8 @@ MacroMaker.GUI = Class.extend({
         this.textBottom = new MacroMaker.TextEditor(this.mouseSelection.getBox(), "bottom");
         this.mouseSelection.appendElement(this.textBottom.getElement());
 
+        this.textTop.focus();
+
     },
 
     disableButton: function(button) {
