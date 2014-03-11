@@ -58,9 +58,9 @@ MacroMaker.GUI = Class.extend({
         });
         this.mouseSelection.appendElement(this.cancelButton);
 
-        this.textTop = new MacroMaker.TextEditor(this.mouseSelection.getBox(), "bottom");
+        this.textTop = new MacroMaker.TextEditor(this.mouseSelection.getBox(), "top");
         this.mouseSelection.appendElement(this.textTop.getElement());
-        this.textBottom = new MacroMaker.TextEditor(this.mouseSelection.getBox(), "top");
+        this.textBottom = new MacroMaker.TextEditor(this.mouseSelection.getBox(), "bottom");
         this.mouseSelection.appendElement(this.textBottom.getElement());
 
     },
@@ -147,7 +147,9 @@ MacroMaker.GUI = Class.extend({
         if (this.images.captioned !== "" && this.images.uncaptioned !== "") {
             var values = this.getValues();
             console.log(this.images.captioned.substr(this.images.captioned.length-10), this.images.uncaptioned.substr(this.images.uncaptioned.length-10));
-            MacroMaker.App.postDataAjax(this.images.captioned, this.images.uncaptioned);
+            var text1 = this.textTop.getText();
+            var text2 = this.textBottom.getText();
+            MacroMaker.App.postDataAjax(this.images.captioned, this.images.uncaptioned, text1, text2);
             return true;
         }
     },

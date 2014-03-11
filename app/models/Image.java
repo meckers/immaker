@@ -14,6 +14,9 @@ public class Image {
     private String _id;
     private String _rev;
     private boolean published = false;
+    private String text1;
+    private String text2;
+    private String textIdentifier;
 
 
     public Image() {
@@ -51,4 +54,27 @@ public class Image {
         this.published = published;
     }
 
+    public String getText1() {
+        return this.text1;
+    }
+
+    public void setText1(String text) {
+        this.text1 = text;
+    }
+
+    public String getText2() {
+        return this.text2;
+    }
+
+    public void setText2(String text) {
+        this.text2 = text;
+    }
+
+    public String getTextIdentifier() {
+        return this.textIdentifier;
+    }
+
+    public void setTextIdentifier(String text) {
+        this.textIdentifier = text;
+    }
 }

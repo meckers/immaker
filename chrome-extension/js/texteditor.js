@@ -47,20 +47,12 @@ MacroMaker.TextEditor = Class.extend({
         return this.element;
     },
 
-    destroy: function() {
-        this.element.remove();
+    getText: function() {
+        return this.element.html();
     },
 
-    enterInitialMode: function() {
-        var me = this;
-        this.element.removeClass('edit-mode');
-        this.element.addClass('initial-mode');
-        var $textDiv = $('<div></div>').html("CLICK HERE TO ENTER TEXT").addClass('text');
-        $textDiv.on('click', function() {
-            me.enterInputMode();
-            me.focus();
-        })
-        this.element.append($textDiv);
+    destroy: function() {
+        this.element.remove();
     },
 
     enterInputMode: function() {

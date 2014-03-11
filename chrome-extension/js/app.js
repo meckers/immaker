@@ -34,24 +34,27 @@ MacroMaker.App = {
     },
 
 
-    postDataAjax: function(imageWithCaption, image) {
+    postDataAjax: function(imageWithCaption, image, text1, text2) {
 
         var isRetina = window.devicePixelRatio > 1;
 
         var data = {
             'imageWithCaption': imageWithCaption,
             'imageNoCaption': image,
-            'retina': isRetina
+            'retina': isRetina,
+            'text1': text1,
+            'text2': text2
         };
 
         console.log("posting data", data);
 
         var me = this;
         $.post(this.baseUrl + '/edit/createajax', data, function(data) {
-            if (data.imageId) {
+            console.log("save complete", data);
+            if (data._id) {
                 chrome.runtime.sendMessage({
                     command: "new-tab",
-                    url: me.baseUrl + "/" + data.imageId
+                    url: me.baseUrl + "/" + data._id + "/" + data.textIdentifier
                 });
                 MacroMaker.Events.trigger("IMAGE_SAVE_COMPLETE", data);
             }
