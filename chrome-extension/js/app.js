@@ -34,18 +34,13 @@ MacroMaker.App = {
     },
 
 
-    postDataAjax: function(imageWithCaption, image, top, left, width, height) {
+    postDataAjax: function(imageWithCaption, image) {
 
         var isRetina = window.devicePixelRatio > 1;
-        var multiplier = isRetina ? 2 : 1;
 
         var data = {
             'imageWithCaption': imageWithCaption,
             'imageNoCaption': image,
-            'top': Math.ceil(top * multiplier),
-            'left': Math.ceil(left * multiplier),
-            'width': Math.ceil(width * multiplier),
-            'height': Math.ceil(height * multiplier),
             'retina': isRetina
         };
 

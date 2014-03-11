@@ -1,9 +1,13 @@
 {
     "manifest_version": 2,
 
-    "name": "Image Macro Maker",
-    "description": "Make image macros out of anytning on the web, instantly.",
+    "name": "YayPegger",
+    "description": "Image macro maker for YayPegs! Make image macros out of anytning on the web, instantly.",
     "version": "1.0",
+
+    "icons": { "16": "images/yaypegs-logo-small2-16.png",
+        "48": "images/yaypegs-logo-small2-48.png",
+        "128": "images/yaypegs-logo-small2-128.png" },
 
     "permissions": ["tabs", "<all_urls>",  "http://*/*", "https://*/*"],
 
@@ -31,6 +35,9 @@
     "web_accessible_resources" : ["/images/*.gif"],
 
       "browser_action": {
-        "default_icon": "icon.png"
+        "default_icon": {
+            "19": "images/yaypegs-logo-small2-19.png",
+            "38": "images/yaypegs-logo-small2-38.png"
+        }
     }
 }

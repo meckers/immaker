@@ -5,6 +5,7 @@ MacroMaker.GUI = Class.extend({
     container: null,
     progressImage: null,
     canvas: null,
+    images: null,
 
     init: function(container) {
         this.id = Math.ceil(Math.random()*1000);
@@ -15,7 +16,15 @@ MacroMaker.GUI = Class.extend({
             container: container,
             shroud: true
         });
+        this.initImages();
         this.listen();
+    },
+
+    initImages: function() {
+        this.images = {
+            captioned : "",
+            uncaptioned : ""
+        };
     },
 
     listen: function() {
@@ -74,95 +83,71 @@ MacroMaker.GUI = Class.extend({
     },
 
     grab: function() {
-        var me = this;
-        this.captureImagesWithCanvas(function() {
-            //me.mouseSelection.showBorder();
-            //ClipNote.Messages.sendMessage("POST_GRAB");
-        });
+        this.captureImagesWithCanvas();
     },
 
     captureImagesWithCanvas: function() {
         var me = this;
+
+        if (!this.canvas) {
+            this.canvas = $("<canvas></canvas>");
+            this.canvas.css({
+                'display': 'none'
+            });
+            $('body').append(this.canvas);
+        }
+
+        chrome.runtime.sendMessage({command:"capture-tab"}, function(response) {
+            me.processImage(response, me.canvas[0], "captioned");
+            $(".imkr-caption").css('display', 'none');
+            // TODO: DETTA MÅSTE FIXAS, vi kan inte förlita oss på en setTimout.
+            window.setTimeout(function() {
+                chrome.runtime.sendMessage({command:"capture-tab"}, function(secondResponse) {
+                    me.processImage(secondResponse, me.canvas[0], "uncaptioned");
+                });
+            }, 500);
+        });
+    },
+
+    processImage: function(response, canvas, target) {
+        console.log("processing image", response, canvas, target);
+        var me = this;
+        var image = new Image();
+        image.onload = function() {
+            console.log("image loaded");
+            me.images[target] = me.cropImage(image, canvas);
+            me.checkIfReadyToPost();
+        };
+        image.src = response.image;
+    },
+
+    cropImage: function(image, canvas) {
+        console.log("cropping image");
         var selectionValues = this.getValues();
         var isRetina = window.devicePixelRatio > 1;
         var multiplier = isRetina ? 2 : 1;
+        canvas.width = selectionValues.width * multiplier;
+        canvas.height = selectionValues.height * multiplier;
+        var context = canvas.getContext('2d');
+        context.drawImage(image,
+            selectionValues.left * multiplier,
+            selectionValues.top * multiplier,
+            selectionValues.width * multiplier,
+            selectionValues.height * multiplier,
+            0, 0,
+            selectionValues.width * multiplier,
+            selectionValues.height * multiplier
+        );
 
-        console.log("selection values", selectionValues, "multiplier", multiplier);
-        chrome.runtime.sendMessage({command:"capture-tab"}, function(response) {
-            if (!me.canvas) {
-                me.canvas = $("<canvas></canvas>");
-                me.canvas.css({
-                    'display': 'none'
-                });
-                $('body').append(me.canvas);
-            }
-
-            var image = new Image();
-            image.onload = function() {
-                var cvs = me.canvas[0];
-                cvs.width = selectionValues.width * multiplier;
-                cvs.height = selectionValues.height * multiplier;
-                var context = cvs.getContext('2d');
-                context.drawImage(image,
-                    selectionValues.left * multiplier,
-                    selectionValues.top * multiplier,
-                    selectionValues.width * multiplier,
-                    selectionValues.height * multiplier,
-                    0, 0,
-                    selectionValues.width * multiplier,
-                    selectionValues.height * multiplier
-                );
-
-                me.imageWithCaption = cvs.toDataURL("image/png");
-                me.image = me.imageWithCaption;
-                me.checkIfReadyToPost();
-            }
-
-            image.src = response.image;
-        });
-    },
-
-    doCapture: function() {
-
-    },
-
-    captureImages: function(callback) {
-        var me = this;
-        chrome.runtime.sendMessage({
-            command: "capture-tab"
-        }, function(response) {
-            //document.getElementById('chinti-texteditor').style.display = 'none';
-            $(".imkr-caption").css('display', 'none');
-            if (response.image) {
-                me.imageWithCaption = response.image;
-            }
-            //me.textEditor.show();
-
-            // TODO: DETTA MÅSTE FIXAS, vi kan inte förlita oss på en setTimout.
-            setTimeout(function() {
-                chrome.runtime.sendMessage({
-                    command: "capture-tab"
-                }, function(secondResponse) {
-                    if (secondResponse.image) {
-                        me.image = secondResponse.image;
-                        //document.getElementById('chinti-texteditor').style.display = 'block';
-                        $(".imkr-caption").css('display', 'block');
-                        me.checkIfReadyToPost();
-                        if (callback) {
-                            callback();
-                        }
-                    }
-                });
-            }, 500);
-
-        });
+        return canvas.toDataURL("image/png");
     },
 
     checkIfReadyToPost: function() {
-        if (this.imageWithCaption && this.image) {
+        console.log("checking if ready to post");
+        if (this.images.captioned !== "" && this.images.uncaptioned !== "") {
             var values = this.getValues();
-            console.log(this.imageWithCaption.substr(this.imageWithCaption.length-10), this.image.substr(this.image.length-10));
-            MacroMaker.App.postDataAjax(this.imageWithCaption, this.image, values.top, values.left, values.width, values.height);
+            console.log(this.images.captioned.substr(this.images.captioned.length-10), this.images.uncaptioned.substr(this.images.uncaptioned.length-10));
+            MacroMaker.App.postDataAjax(this.images.captioned, this.images.uncaptioned);
             return true;
         }
     },
@@ -205,6 +190,9 @@ MacroMaker.GUI = Class.extend({
         if (this.mouseSelection) {
             this.mouseSelection.destroy();
         }
+
+        this.initImages();
+
         /*
         if (this.grabButton) {
             this.grabButton.remove();
