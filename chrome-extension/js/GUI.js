@@ -122,13 +122,16 @@ MacroMaker.GUI = Class.extend({
     },
 
     cropImage: function(image, canvas) {
-        console.log("cropping image");
         var selectionValues = this.getValues();
-        var isRetina = window.devicePixelRatio > 1;
-        var multiplier = isRetina ? 2 : 1;
-        canvas.width = selectionValues.width * multiplier;
-        canvas.height = selectionValues.height * multiplier;
+        var multiplier = window.devicePixelRatio;
+        canvas.width = selectionValues.width;
+        canvas.height = selectionValues.height;
         var context = canvas.getContext('2d');
+
+        if (multiplier == 2) {
+            context.scale(0.5, 0.5);
+        }
+
         context.drawImage(image,
             selectionValues.left * multiplier,
             selectionValues.top * multiplier,
@@ -138,6 +141,8 @@ MacroMaker.GUI = Class.extend({
             selectionValues.width * multiplier,
             selectionValues.height * multiplier
         );
+
+
 
         return canvas.toDataURL("image/png");
     },
