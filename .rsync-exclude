@@ -1,0 +1,6 @@
+tmp/
+logs/
+public/content/
+server.pid
+.git/
+.idea/
