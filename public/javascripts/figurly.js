@@ -13,6 +13,7 @@ Figurly.SideBar = {
     selecting: false,
 
     init: function() {
+        alert("!");
         this.listen();
     },
 

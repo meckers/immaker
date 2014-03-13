@@ -9,6 +9,7 @@ POST	/upload									Upload.upload
 
 POST    /edit/create                            Edit.createImage
 POST    /edit/createajax                        Edit.createImageAjax
+POST    /edit/saveajax                          Edit.saveImageAjax
 GET     /edit/new                               Edit.newComic
 GET     /edit/order/{comicId}/{frameId}/{direction}     Edit.order
 GET     /edit/remove/{comicId}/{frameId}        Edit.removeFrame

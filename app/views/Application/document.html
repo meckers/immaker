@@ -1,17 +1,31 @@
 #{extends 'main.html' /}
 #{set title:'jaypegs! | all the fun' /}
 
+
+
 <div id="header">
-    <img src="/public/images/yaypegs-logo2.png"/>
+    <img src="/public/images/yaypegs-logo2-large-bigexl.png" height="60"/>
 </div>
 
 <div id="content">
+
     #{if image}
-    <div>
-        <div onclick="Figurly.toggleTemplate();" class="button">Show template</div><br/>
+
+    <input type="hidden" id="image-id" value="${image.id}"/>
+
+    <div id="title-area">
+        <div id="title" contenteditable="${imageOwner}">${image.title}</div>
+        #{if imageOwner}
+            <input id="save-button" class="button save positive hidden" type="button" value="SAVE"/>
+        #{/if}
+    </div>
+
+    <div id="image-area">
+        <!--div onclick="Figurly.toggleTemplate();" class="button">Show template</div><br/-->
         <img src="/public/content/${image.id}/${image.id}_t.png" class="image template hidden"/>
         <img src="/public/content/${image.id}/${image.id}.png" class="image">
     </div>
+    <a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit10.gif" alt="submit to reddit" border="0" /> </a>
     #{/if}
     #{else}
         <div class="message">Not found - image does not exist, or is not published.</div>

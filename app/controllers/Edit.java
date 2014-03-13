@@ -18,6 +18,13 @@ public class Edit extends Controller {
 
         try{
 
+            String yaypegsId = request.cookies.get("yaypegs-id") != null ? request.cookies.get("yaypegs-id").value : null;
+            if (yaypegsId == null) {
+                UUID uuid = UUID.randomUUID();
+                yaypegsId = String.valueOf(uuid.getMostSignificantBits());
+                response.setCookie("yaypegs-id", yaypegsId, "1d");
+            }
+
             String text1 = params.get("text1");
             String text2 = params.get("text2");
 
@@ -29,6 +36,8 @@ public class Edit extends Controller {
             // create new image in db
             image = new Image();  // image created with new random ID.
             image.setPublished(true);
+            image.setYaypegsId(yaypegsId);
+            image.setTitle("Click here to enter a title");
 
             if (text1 != null) {
                 image.setText1(text1);
@@ -47,6 +56,18 @@ public class Edit extends Controller {
 
             //renderJSON("{\"imageId\": \"" + image.getId() + "\"}");
             renderJSON(image);
+        }
+        catch(Exception ex) {
+            renderJSON("{\"error\": \"" + ex.getMessage() + "\"}");
+        }
+    }
+
+    public static void saveImageAjax() {
+        try {
+            Image image = ImageStore.get(params.get("id"));
+            image.setTitle(params.get("title"));
+            ImageStore.update(image);
+            renderJSON("{\"status\": \"OK\"}");
         }
         catch(Exception ex) {
             renderJSON("{\"error\": \"" + ex.getMessage() + "\"}");

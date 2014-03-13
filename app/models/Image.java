@@ -14,9 +14,11 @@ public class Image {
     private String _id;
     private String _rev;
     private boolean published = false;
+    private String title;
     private String text1;
     private String text2;
     private String textIdentifier;
+    private String yaypegsId;
 
 
     public Image() {
@@ -54,6 +56,14 @@ public class Image {
         this.published = published;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getText1() {
         return this.text1;
     }
@@ -76,5 +86,13 @@ public class Image {
 
     public void setTextIdentifier(String text) {
         this.textIdentifier = text;
+    }
+
+    public String getYaypegsId() {
+        return this.yaypegsId;
+    }
+
+    public void setYaypegsId(String yaypegsId) {
+        this.yaypegsId = yaypegsId;
     }
 }

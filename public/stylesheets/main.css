@@ -30,6 +30,8 @@ body {
     top: 0;
     left: 0;
     padding: 5px;
+    border-bottom: 1px solid grey;
+    background-color: #efefef;
 }
 
 #content {
@@ -37,90 +39,55 @@ body {
     margin-top: 100px;
 }
 
+#image-area {
+    max-width: 700px;
+    margin: 0 auto;
+    border-left: 1px solid #efefef;
+    border-right: 1px solid #efefef;
+}
+
 img.image.hidden {
     display: none;
 }
 
-
-/* SIDEBAR */
-
-#instructions {
-    border: 1px solid #add8e6;
-    padding: 5px;
-    margin: 10px;
-}
-
-
-ul.frame-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-ul.frame-list li {
+#title-area {
+    margin: 0 auto;
+    width: 700px;
+    margin-bottom: 10px;
     position: relative;
+    text-align: right;
 }
 
-ul.frame-list li img {
-    width: 100%;
+#title {
+    width: 547px;
+    font-size: 25px;
+    text-align: left;
+    outline: none;
+    float: left;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-top: 10px;
 }
 
-#permalink {
-    width: 100%;
-}
-
-.remove-button {
+#save-button {
+    /*
     position: absolute;
-    right: 0px;
-    width: 25px;
-    height: 25px;
-    background-color: white;
-    border: 0;
-    border-bottom-left-radius: 3px;
-    cursor: pointer;
+    right: -106px;
+    width: 100px;
+    top: 0;
+    margin-top: -3px;
+    */
+    width: 100px;
+    position: relative;
+    float: left;
 }
 
-.remove-button i {
-    margin-top: 5px;
-    margin-left: 7px;
-}
-
-.order-buttons {
-    position: absolute;
-    height: 48px;
-    width: 24px;
-    right: 0px;
-    top: 50%;
-    margin-top: -24px;
-}
-
-.order-buttons .order-button {
-    background-color: white;
-    height: 25px;
-    cursor: pointer;
-}
-
-.order-buttons .order-button.up {
-    border-top-left-radius: 3px;
-    border-bottom: 1px solid grey;
-}
-
-.order-buttons .order-button.noclick {
-    opacity:0.5;
-}
-
-.order-buttons .order-button i {
-    margin-top: 5px;
-    margin-left: 5px;
-}
-
-.order-buttons .order-button.noclick i {
+#save-button.hidden {
     display: none;
 }
 
-.order-buttons .order-button.down {
-    border-bottom-left-radius: 3px;
-}
+
+
 
 .button {
     padding: 10px;
@@ -129,12 +96,6 @@ ul.frame-list li img {
     border: 1px solid #505050;
     border-radius: 2px;
     cursor: pointer;
-}
-
-.button.selectiondocked {
-    border-left: 3px dashed yellow;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
 }
 
 .button.negative {

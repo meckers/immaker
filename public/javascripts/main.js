@@ -1,6 +1,8 @@
 
+var _yaypegs = null;
+
 $(function() {
-    if (Figurly) {
-        Figurly.SideBar.init();
+    if (YayPegs) {
+        _yaypags = new YayPegs();
     }
 })

@@ -3,7 +3,7 @@ var MacroMaker = MacroMaker || {};
 MacroMaker.App = {
 
 	baseUrl: 'http://localhost:9881',
-    //baseUrl: 'http://blog.eckers.se',
+    //baseUrl: 'http://www.yaypegs.com',
     running: false,
 
 	init: function() {
