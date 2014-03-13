@@ -13,6 +13,9 @@
 <body>
 #{doLayout /}
 
+
+${request.host}
+${request.host.indexOf('yaypegs.com')}
 #{if request.host.indexOf('yaypegs.com') != -1}
 (c) YayPegs
 #{/if}
