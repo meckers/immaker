@@ -1,9 +1,11 @@
 YayPegs = Class.extend({
 
-    baseUrl: 'http://localhost:9881',
+    //baseUrl: null,
     imageId: null,
 
     init: function() {
+        //this.baseUrl = _env.host + (_env.port.length > 0 ? ":" + _env.port : "");
+        //console.log(this.baseUrl);
         this.initTitle();
         this.initSaveButton();
         this.imageId = $("#image-id").val();
@@ -45,7 +47,7 @@ YayPegs = Class.extend({
         console.log("posting data", data);
 
         var me = this;
-        $.post(this.baseUrl + '/edit/saveajax', data, function(data) {
+        $.post('/edit/saveajax', data, function(data) {
             console.log("save complete", data);
             me.saveButton.addClass('hidden');
         });

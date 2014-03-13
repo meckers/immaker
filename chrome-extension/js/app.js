@@ -2,8 +2,8 @@ var MacroMaker = MacroMaker || {};
 
 MacroMaker.App = {
 
-	baseUrl: 'http://localhost:9881',
-    //baseUrl: 'http://www.yaypegs.com',
+	//baseUrl: 'http://localhost:9881',
+    baseUrl: 'http://www.yaypegs.com',
     running: false,
 
 	init: function() {
